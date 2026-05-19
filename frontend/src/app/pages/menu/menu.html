@@ -1,0 +1,46 @@
+<div class="menu-page">
+  <div class="container">
+    <h1 class="page-title">Monthly Food Menu</h1>
+    <p class="page-subtitle">Nutritious meals served to pregnant women every month 🍱</p>
+
+    <div class="filter-bar card">
+      <div class="filter-group">
+        <label>Month</label>
+        <select [(ngModel)]="selectedMonth" (change)="filterMenu()">
+          <option *ngFor="let m of months" [value]="m">{{ m }}</option>
+        </select>
+      </div>
+      <div class="filter-group">
+        <label>Year</label>
+        <select [(ngModel)]="selectedYear" (change)="filterMenu()">
+          <option *ngFor="let y of years" [value]="y">{{ y }}</option>
+        </select>
+      </div>
+      <button class="btn-primary" (click)="filterMenu()">Filter</button>
+    </div>
+
+    <div class="loading" *ngIf="loading">Loading menu items...</div>
+
+    <div class="empty" *ngIf="!loading && filteredItems.length === 0">
+      <div class="empty-icon">🍽️</div>
+      <p>No menu items found for selected month.</p>
+    </div>
+
+    <div class="menu-grid" *ngIf="!loading && filteredItems.length > 0">
+      <div class="menu-card" *ngFor="let item of filteredItems">
+        <div class="menu-icon">🍛</div>
+        <div class="menu-info">
+          <h3>{{ item.itemName }}</h3>
+          <p>{{ item.description }}</p>
+          <div class="menu-tags">
+            <span class="badge badge-green">{{ item.month }} {{ item.servedYear }}</span>
+            <span class="badge badge-orange">{{ item.servedTo }}</span>
+          </div>
+          <div class="cooked-by">
+            <span>👨‍🍳 Cooked by: {{ item.cookedBy }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

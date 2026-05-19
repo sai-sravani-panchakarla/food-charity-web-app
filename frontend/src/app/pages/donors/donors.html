@@ -1,0 +1,85 @@
+<div class="donors-page">
+  <div class="container">
+    <h1 class="page-title">Donors & Expenses</h1>
+    <p class="page-subtitle">Complete transparency on donations received and money spent 💚</p>
+
+    <div class="summary-grid">
+      <div class="summary-card green">
+        <div class="summary-icon">💰</div>
+        <div class="summary-amount">₹{{ totalDonations }}</div>
+        <div class="summary-label">Total Donations</div>
+      </div>
+      <div class="summary-card orange">
+        <div class="summary-icon">🛒</div>
+        <div class="summary-amount">₹{{ totalExpenses }}</div>
+        <div class="summary-label">Total Expenses</div>
+      </div>
+      <div class="summary-card blue">
+        <div class="summary-icon">🏦</div>
+        <div class="summary-amount">₹{{ balance }}</div>
+        <div class="summary-label">Balance</div>
+      </div>
+    </div>
+
+    <div class="filter-bar card">
+      <div class="filter-group">
+        <label>Filter by Month</label>
+        <select [(ngModel)]="selectedMonth" (change)="filterByMonth()">
+          <option *ngFor="let m of months" [value]="m">{{ m }}</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="tables-grid">
+      <div class="table-section card">
+        <h2>💝 Donor List</h2>
+        <div class="empty-msg" *ngIf="donors.length === 0">No donors found.</div>
+        <table *ngIf="donors.length > 0">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Name</th>
+              <th>Amount</th>
+              <th>Month</th>
+              <th>Message</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let d of donors; let i = index">
+              <td>{{ i + 1 }}</td>
+              <td><strong>{{ d.donorName }}</strong></td>
+              <td><span class="amount green">₹{{ d.amount }}</span></td>
+              <td><span class="badge badge-green">{{ d.month }}</span></td>
+              <td>{{ d.message || '-' }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="table-section card">
+        <h2>🛒 Expense List</h2>
+        <div class="empty-msg" *ngIf="expenses.length === 0">No expenses found.</div>
+        <table *ngIf="expenses.length > 0">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Item</th>
+              <th>Amount</th>
+              <th>Month</th>
+              <th>Category</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let e of expenses; let i = index">
+              <td>{{ i + 1 }}</td>
+              <td><strong>{{ e.itemName }}</strong></td>
+              <td><span class="amount orange">₹{{ e.amount }}</span></td>
+              <td><span class="badge badge-orange">{{ e.month }}</span></td>
+              <td>{{ e.category }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

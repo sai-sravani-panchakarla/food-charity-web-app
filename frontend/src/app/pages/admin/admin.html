@@ -1,0 +1,120 @@
+<div class="admin-page">
+  <div class="container">
+    <h1 class="page-title">Admin Panel</h1>
+    <p class="page-subtitle">Add food items, donors and expenses 🔐</p>
+
+    <div class="tabs">
+      <button [class.active]="activeTab === 'food'" (click)="setTab('food')">🍛 Add Food Item</button>
+      <button [class.active]="activeTab === 'donor'" (click)="setTab('donor')">💝 Add Donor</button>
+      <button [class.active]="activeTab === 'expense'" (click)="setTab('expense')">🛒 Add Expense</button>
+    </div>
+
+    <div class="success-msg" *ngIf="successMsg">✅ {{ successMsg }}</div>
+
+    <div class="form-card card" *ngIf="activeTab === 'food'">
+      <h2>Add Menu Item</h2>
+      <div class="form-grid">
+        <div class="form-group">
+          <label>Food Item Name</label>
+          <input [(ngModel)]="foodItem.itemName" placeholder="e.g. Sambar Rice" />
+        </div>
+        <div class="form-group">
+          <label>Description</label>
+          <input [(ngModel)]="foodItem.description" placeholder="e.g. Served with pickle" />
+        </div>
+        <div class="form-group">
+          <label>Month</label>
+          <select [(ngModel)]="foodItem.month">
+            <option value="">Select Month</option>
+            <option *ngFor="let m of months" [value]="m">{{ m }}</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Year</label>
+          <input type="number" [(ngModel)]="foodItem.servedYear" />
+        </div>
+        <div class="form-group">
+          <label>Served To</label>
+          <input [(ngModel)]="foodItem.servedTo" />
+        </div>
+        <div class="form-group">
+          <label>Cooked By</label>
+          <input [(ngModel)]="foodItem.cookedBy" placeholder="e.g. Neighbors group" />
+        </div>
+      </div>
+      <button class="btn-primary" (click)="addFood()">Add Food Item</button>
+    </div>
+
+    <div class="form-card card" *ngIf="activeTab === 'donor'">
+      <h2>Add Donor</h2>
+      <div class="form-grid">
+        <div class="form-group">
+          <label>Donor Name</label>
+          <input [(ngModel)]="donor.donorName" placeholder="e.g. Ravi Kumar" />
+        </div>
+        <div class="form-group">
+          <label>Amount (₹)</label>
+          <input type="number" [(ngModel)]="donor.amount" placeholder="e.g. 500" />
+        </div>
+        <div class="form-group">
+          <label>Donated Date</label>
+          <input type="date" [(ngModel)]="donor.donatedDate" />
+        </div>
+        <div class="form-group">
+          <label>Month</label>
+          <select [(ngModel)]="donor.month">
+            <option value="">Select Month</option>
+            <option *ngFor="let m of months" [value]="m">{{ m }}</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Year</label>
+          <input type="number" [(ngModel)]="donor.donatedYear" />
+        </div>
+        <div class="form-group">
+          <label>Message (optional)</label>
+          <input [(ngModel)]="donor.message" placeholder="e.g. God bless you all" />
+        </div>
+      </div>
+      <button class="btn-primary" (click)="addDonor()">Add Donor</button>
+    </div>
+
+    <div class="form-card card" *ngIf="activeTab === 'expense'">
+      <h2>Add Expense</h2>
+      <div class="form-grid">
+        <div class="form-group">
+          <label>Item Name</label>
+          <input [(ngModel)]="expense.itemName" placeholder="e.g. Rice 10kg" />
+        </div>
+        <div class="form-group">
+          <label>Amount (₹)</label>
+          <input type="number" [(ngModel)]="expense.amount" placeholder="e.g. 800" />
+        </div>
+        <div class="form-group">
+          <label>Category</label>
+          <input [(ngModel)]="expense.category" placeholder="e.g. Food ingredients" />
+        </div>
+        <div class="form-group">
+          <label>Month</label>
+          <select [(ngModel)]="expense.month">
+            <option value="">Select Month</option>
+            <option *ngFor="let m of months" [value]="m">{{ m }}</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Year</label>
+          <input type="number" [(ngModel)]="expense.expenseYear" />
+        </div>
+        <div class="form-group">
+          <label>Expense Date</label>
+          <input type="date" [(ngModel)]="expense.expenseDate" />
+        </div>
+        <div class="form-group">
+          <label>Notes (optional)</label>
+          <input [(ngModel)]="expense.notes" placeholder="e.g. Bought from local market" />
+        </div>
+      </div>
+      <button class="btn-primary" (click)="addExpense()">Add Expense</button>
+    </div>
+  </div>
+</div>
