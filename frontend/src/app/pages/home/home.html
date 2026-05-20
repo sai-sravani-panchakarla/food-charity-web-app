@@ -1,17 +1,31 @@
 <div class="home">
+
+  <!-- HERO SECTION -->
   <section class="hero">
     <div class="hero-content">
       <div class="hero-badge">🙏 Serving with Love Since 2020</div>
-      <h1>LOVE ALL SERVE ALL<br><span>One Meal at a Time</span></h1>
+      <h1>Nourishing Lives,<br><span>One Meal at a Time</span></h1>
       <p>Every month, we serve nutritious meals to pregnant women visiting the government hospital — cooked with love by our family and generous neighbors.</p>
       <div class="hero-buttons">
         <a routerLink="/menu" class="btn-primary">View Monthly Menu</a>
         <a routerLink="/donors" class="btn-outline">Our Donors</a>
+        <button class="btn-donate" (click)="openModal('donate')">❤️ Donate Now</button>
       </div>
     </div>
     <div class="hero-image">🍱</div>
   </section>
 
+  <!-- QUOTE SECTION -->
+  <section class="quote-section">
+    <div class="quote-content">
+      <div class="quote-icon">❝</div>
+      <h2 class="quote-text">Love All, Serve All</h2>
+      <p class="quote-author">— Sri Sathya Sai Baba</p>
+      <p class="quote-sub">This timeless wisdom inspires every meal we cook and every life we touch.</p>
+    </div>
+  </section>
+
+  <!-- STATS SECTION -->
   <section class="stats">
     <div class="container">
       <div class="stats-grid">
@@ -20,7 +34,7 @@
           <div class="stat-label">Months of Service</div>
         </div>
         <div class="stat-card">
-          <div class="stat-number">4867+</div>
+          <div class="stat-number">500+</div>
           <div class="stat-label">Women Served</div>
         </div>
         <div class="stat-card">
@@ -35,6 +49,24 @@
     </div>
   </section>
 
+  <!-- GALLERY SECTION -->
+  <section class="gallery">
+    <div class="container">
+      <h2 class="section-title">Moments of Service 📸</h2>
+      <p class="section-sub">Glimpses of our monthly food service at the hospital</p>
+      <div class="gallery-grid">
+        <div class="gallery-item" *ngFor="let img of [1,2,3,4,5,6]">
+          <div class="gallery-placeholder">
+            <span class="gallery-emoji">🍛</span>
+            <p>Food Service {{ img }}</p>
+            <span class="coming-soon">Real photo coming soon</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT SECTION -->
   <section class="about">
     <div class="container">
       <div class="about-grid">
@@ -43,20 +75,24 @@
           <p>What started as a small act of kindness by our family has grown into a monthly tradition. Every month, during the hospital's prenatal checkup days, we cook and serve hot, nutritious meals to pregnant women who travel long distances to visit the doctor.</p>
           <p>With the help of our wonderful neighbors who volunteer their time and skills, we prepare wholesome South Indian meals — because every mother deserves to be nourished.</p>
           <div class="about-highlights">
-            <div class="highlight">
+            <div class="highlight" (click)="openModal('family')">
               <span class="highlight-icon">👨‍👩‍👧</span>
               <span>Family Initiative</span>
+              <span class="click-hint">Click to meet us →</span>
             </div>
-            <div class="highlight">
+            <div class="highlight" (click)="openModal('hospital')">
               <span class="highlight-icon">🏥</span>
               <span>Government Hospital</span>
+              <span class="click-hint">Click to know more →</span>
             </div>
-            <div class="highlight">
+            <div class="highlight" (click)="openModal('sai')">
               <span class="highlight-icon">🤝</span>
               <span>Community Driven</span>
+              <span class="click-hint">Click for inspiration →</span>
             </div>
           </div>
         </div>
+
         <div class="about-card card">
           <h3>How It Works</h3>
           <div class="steps">
@@ -93,4 +129,116 @@
       </div>
     </div>
   </section>
+
+  <!-- HOSPITAL MODAL -->
+  <div class="modal-overlay" *ngIf="showHospitalModal" (click)="closeAll()">
+    <div class="modal" (click)="$event.stopPropagation()">
+      <button class="modal-close" (click)="closeAll()">×</button>
+      <div class="modal-icon">🏥</div>
+      <h2>Government Hospital</h2>
+      <div class="hospital-info">
+        <div class="info-row">
+          <span class="info-label">Hospital Name</span>
+          <span class="info-value">Government General Hospital</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">Location</span>
+          <span class="info-value">Puduvāyal, Tamil Nadu</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">Service Days</span>
+          <span class="info-value">2nd & 4th week of every month</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">Beneficiaries</span>
+          <span class="info-value">Pregnant women on prenatal checkup</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">Meals Served</span>
+          <span class="info-value">50-100 meals per visit</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">Started</span>
+          <span class="info-value">January 2020</span>
+        </div>
+      </div>
+      <p class="modal-note">📍 We serve hot, freshly cooked South Indian meals right at the hospital premises.</p>
+    </div>
+  </div>
+
+  <!-- FAMILY MODAL -->
+  <div class="modal-overlay" *ngIf="showFamilyModal" (click)="closeAll()">
+    <div class="modal modal-wide" (click)="$event.stopPropagation()">
+      <button class="modal-close" (click)="closeAll()">×</button>
+      <div class="modal-icon">👨‍👩‍👧</div>
+      <h2>Meet Our Family</h2>
+      <p class="modal-sub">The hearts behind every meal we serve 💚</p>
+      <div class="family-grid">
+        <div class="family-card" *ngFor="let member of familyMembers">
+          <div class="family-photo">{{ member.emoji }}</div>
+          <h3>{{ member.name }}</h3>
+          <span class="family-role">{{ member.role }}</span>
+          <p>{{ member.desc }}</p>
+        </div>
+      </div>
+      <p class="modal-note">🙏 Replace emojis with real family photos by updating the component!</p>
+    </div>
+  </div>
+
+  <!-- SAI BABA MODAL -->
+  <div class="modal-overlay" *ngIf="showSaiBabaModal" (click)="closeAll()">
+    <div class="modal" (click)="$event.stopPropagation()">
+      <button class="modal-close" (click)="closeAll()">×</button>
+      <div class="modal-icon">🙏</div>
+      <h2>Our Inspiration</h2>
+      <p class="modal-sub">Sri Sathya Sai Baba — The guiding light of our service</p>
+      <div class="sai-photo-placeholder">
+        <span>🪷</span>
+        <p>Photo of Sri Sathya Sai Baba</p>
+        <span class="coming-soon">Add real photo here</span>
+      </div>
+      <div class="sai-quotes">
+        <div class="sai-quote">"Love All, Serve All"</div>
+        <div class="sai-quote">"Help Ever, Hurt Never"</div>
+        <div class="sai-quote">"The best way to love God is to love all, serve all"</div>
+      </div>
+      <p class="modal-desc">Inspired by the teachings of Sri Sathya Sai Baba, our family believes that serving food to those in need is the highest form of worship.</p>
+    </div>
+  </div>
+
+  <!-- DONATE MODAL -->
+  <div class="modal-overlay" *ngIf="showDonateModal" (click)="closeAll()">
+    <div class="modal" (click)="$event.stopPropagation()">
+      <button class="modal-close" (click)="closeAll()">×</button>
+      <div class="modal-icon">❤️</div>
+      <h2>Donate Now</h2>
+      <p class="modal-sub">Your contribution feeds a mother and her unborn child 🤱</p>
+      <div class="donate-amounts">
+        <div class="donate-card">
+          <div class="donate-amount">₹100</div>
+          <p>Feeds 1 woman</p>
+        </div>
+        <div class="donate-card highlight-card">
+          <div class="donate-amount">₹500</div>
+          <p>Feeds 5 women</p>
+        </div>
+        <div class="donate-card">
+          <div class="donate-amount">₹1000</div>
+          <p>Feeds 10 women</p>
+        </div>
+      </div>
+      <div class="coming-soon-banner">
+        <span>🚀</span>
+        <div>
+          <strong>Online Payment Coming Soon!</strong>
+          <p>We are setting up Razorpay. Meanwhile contact us directly.</p>
+        </div>
+      </div>
+      <div class="contact-donate">
+        <p>📞 Contact us to donate directly</p>
+        <a routerLink="/donors" (click)="closeAll()" class="btn-primary">View Current Donors</a>
+      </div>
+    </div>
+  </div>
+
 </div>

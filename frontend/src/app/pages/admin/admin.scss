@@ -40,3 +40,20 @@
     grid-template-columns: 1fr;
   }
 }
+
+.error-input {
+  border-color: #e63946 !important;
+  background: #fff5f5;
+}
+
+.error-msg {
+  color: #e63946;
+  font-size: 0.8rem;
+  margin-top: 4px;
+  display: block;
+}
+
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
