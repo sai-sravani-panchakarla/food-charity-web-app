@@ -6,10 +6,21 @@
     </div>
     <button class="hamburger" (click)="toggleMenu()">☰</button>
     <ul class="nav-links" [class.open]="menuOpen">
-      <li><a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">Home</a></li>
+      <li><a routerLink="/" routerLinkActive="active"
+        [routerLinkActiveOptions]="{exact:true}">Home</a></li>
       <li><a routerLink="/menu" routerLinkActive="active">Monthly Menu</a></li>
       <li><a routerLink="/donors" routerLinkActive="active">Donors</a></li>
-      <li><a routerLink="/admin" routerLinkActive="active">Admin</a></li>
+      <li *ngIf="authService.isLoggedIn()">
+        <a routerLink="/admin" routerLinkActive="active">Admin</a>
+      </li>
+      <li *ngIf="!authService.isLoggedIn()">
+        <a routerLink="/login" routerLinkActive="active" class="login-link">🔐 Login</a>
+      </li>
+      <li *ngIf="authService.isLoggedIn()">
+        <button class="logout-btn" (click)="logout()">
+          👋 Logout ({{ authService.getUsername() }})
+        </button>
+      </li>
     </ul>
   </div>
 </nav>

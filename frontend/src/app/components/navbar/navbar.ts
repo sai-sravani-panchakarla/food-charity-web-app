@@ -1,15 +1,23 @@
 import { Component } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { AuthService } from '../../services/auth';
 
 @Component({
   selector: 'app-navbar',
-  imports: [RouterLink, RouterLinkActive],
+  imports: [RouterLink, RouterLinkActive, CommonModule],
   templateUrl: './navbar.html',
   styleUrl: './navbar.scss'
 })
 export class Navbar {
   menuOpen = false;
-  toggleMenu() {
-    this.menuOpen = !this.menuOpen;
+
+  constructor(public authService: AuthService) {}
+
+  toggleMenu() { this.menuOpen = !this.menuOpen; }
+
+  logout() {
+    this.authService.logout();
+    this.menuOpen = false;
   }
 }
